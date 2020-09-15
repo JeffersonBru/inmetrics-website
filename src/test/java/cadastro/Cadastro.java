@@ -14,10 +14,11 @@ public class Cadastro extends Capabilities{
 	
 	HelperCadastro cad;
 	Usuario usuario;
-	Properties prop = new LeitorProperties("datapool/datapool_login.properties").getProperties();
+	Properties prop;
 	
 	@BeforeClass
 	public void init() {
+		prop = new LeitorProperties("datapool/datapool_login.properties").getProperties();
 		htmlReporter.config().setReportName(This.class.getSimpleName());
 		cad = new HelperCadastro();
 		this.usuario = cad.gerarUsuarioRandom();

@@ -39,11 +39,7 @@ public class Capabilities {
 	@BeforeClass()
 	@Parameters({ "platform"})
 	protected void defineBrowser(String platform) {
-		htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") +"/test-output/testReport.html");
-		extent = new ExtentReports();
-        extent.attachReporter(htmlReporter);
-        extent.setSystemInfo("Plataforma", platform);
-        htmlReporter.loadXMLConfig("html-config.xml");
+		carregarConfigRelatorio(platform);
 		DesiredCapabilities cap = new DesiredCapabilities();
 		if (driver.get() == null) {
 			switch (platform) {
@@ -73,6 +69,14 @@ public class Capabilities {
 
 		wait = new WebDriverWait(driver.get(), 30);
 		acessaAplicacao(PROPS.getProperty("url"));
+	}
+	
+	private void carregarConfigRelatorio(String platform) {
+		htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") +"/test-output/testReport.html");
+		extent = new ExtentReports();
+        extent.attachReporter(htmlReporter);
+        extent.setSystemInfo("Plataforma", platform);
+        htmlReporter.loadXMLConfig("html-config.xml");
 	}
 	
     @AfterMethod

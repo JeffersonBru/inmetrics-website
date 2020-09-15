@@ -19,10 +19,11 @@ public class Funcionario extends Capabilities{
 	HelperCadastro cad;
 	Usuario usuario;
 	_Funcionario funcionario;
-	Properties prop = new LeitorProperties("datapool/datapool_funcionario.properties").getProperties();
+	Properties prop;
 	
 	@BeforeClass
 	public void init() {
+		prop = new LeitorProperties("datapool/datapool_funcionario.properties").getProperties();
 		htmlReporter.config().setReportName(This.class.getSimpleName());
 		fun = new HelperFuncionario();
 		cad = new HelperCadastro();
