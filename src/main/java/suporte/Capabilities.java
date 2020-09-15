@@ -10,14 +10,26 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
 public class Capabilities {
 	private static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
 	private static WebDriverWait wait;
 	public static Properties PROPS = new LeitorProperties("config.properties").getProperties();
+	public static ExtentHtmlReporter htmlReporter;
+	public static ExtentReports extent;
+	public static ExtentTest test;
 
 	/**
 	 * Metodo para retornar o driver conforme o browser informado na suite
@@ -27,6 +39,11 @@ public class Capabilities {
 	@BeforeClass()
 	@Parameters({ "platform"})
 	protected void defineBrowser(String platform) {
+		htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") +"/test-output/testReport.html");
+		extent = new ExtentReports();
+        extent.attachReporter(htmlReporter);
+        extent.setSystemInfo("Plataforma", platform);
+        htmlReporter.loadXMLConfig("html-config.xml");
 		DesiredCapabilities cap = new DesiredCapabilities();
 		if (driver.get() == null) {
 			switch (platform) {
@@ -57,6 +74,21 @@ public class Capabilities {
 		wait = new WebDriverWait(driver.get(), 30);
 		acessaAplicacao(PROPS.getProperty("url"));
 	}
+	
+    @AfterMethod
+    public void getResult(ITestResult result) {
+        if(result.getStatus() == ITestResult.FAILURE) {
+            test.log(Status.FAIL, MarkupHelper.createLabel(result.getName()+" FAILED ", ExtentColor.RED));
+            test.fail(result.getThrowable());
+        }
+        else if(result.getStatus() == ITestResult.SUCCESS) {
+            test.log(Status.PASS, MarkupHelper.createLabel(result.getName()+" PASSED ", ExtentColor.GREEN));
+        }
+        else {
+            test.log(Status.SKIP, MarkupHelper.createLabel(result.getName()+" SKIPPED ", ExtentColor.ORANGE));
+            test.skip(result.getThrowable());
+        }
+    }
 
 	/**
 	 * Finalizar browser ao terminar teste de uma classe
@@ -64,6 +96,7 @@ public class Capabilities {
 	@AfterClass
 	protected void finalizar() {
 		driver.get().quit();
+		extent.flush();
 	}
 
 	/**

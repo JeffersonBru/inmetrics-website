@@ -5,6 +5,7 @@ import java.util.Properties;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import bsh.This;
 import cadastro.HelperCadastro;
 import funcionario.model._Funcionario;
 import suporte.Capabilities;
@@ -22,6 +23,7 @@ public class Funcionario extends Capabilities{
 	
 	@BeforeClass
 	public void init() {
+		htmlReporter.config().setReportName(This.class.getSimpleName());
 		fun = new HelperFuncionario();
 		cad = new HelperCadastro();
 		usuario = new Usuario(prop.getProperty("usuario").toString(), prop.getProperty("senha").toString());
@@ -31,12 +33,14 @@ public class Funcionario extends Capabilities{
 	
 	@Test
 	public void ct01_nenhumRegistro() {
+		test = extent.createTest("CT01", "Nenhum registro");
 		fun.pesquisarFuncionario("@#$");
 		fun.validarMsgSemRegistro(prop.getProperty("msg.nenhum.registro").toString());
 	}
 	
 	@Test
 	public void ct02_camposObrigatorios() {
+		test = extent.createTest("CT02", "Campos obrigatórios");
 		String msg_campo = prop.getProperty("msg.campo.obrigatorio").toString();
 		fun.acionarLinkNovoFuncionario();
 		fun.acionarEnviar();
@@ -63,6 +67,7 @@ public class Funcionario extends Capabilities{
 	
 	@Test
 	public void ct03_cpfInvalido() {
+		test = extent.createTest("CT03", "CPF invalido");
 		fun.acionarLinkNovoFuncionario();
 		fun.preencherCpf("123");
 		fun.acionarTabTeclado();
@@ -71,6 +76,7 @@ public class Funcionario extends Capabilities{
 	
 	@Test 
 	public void ct04_dataAdmissaoInvalida() {
+		test = extent.createTest("CT04", "Data admissao invalida");
 		fun.acionarLinkNovoFuncionario();
 		fun.preencherCpf(funcionario.cpf);
 		fun.preencherDataAdmissao("112255");
@@ -81,6 +87,7 @@ public class Funcionario extends Capabilities{
 	
 	@Test
 	public void ct05_cadastarFuncionario() {
+		test = extent.createTest("CT06", "Cadastrar Funcionario");
 		fun.acionarLinkNovoFuncionario();
 		fun.preencherNome(funcionario.nome);
 		fun.preencherCpf(funcionario.cpf);
@@ -95,12 +102,14 @@ public class Funcionario extends Capabilities{
 	
 	@Test
 	public void ct06_consultarFuncionario() {
+		test = extent.createTest("CT01", "Campos obrigatórios - Login");
 		fun.pesquisarFuncionario(funcionario.nome);
 		fun.validarListaFuncionario(funcionario);
 	}
 	
 	@Test 
 	public void ct07_editarFuncionario() {
+		test = extent.createTest("CT07", "Editar Funcionario");
 		fun.acionarLinkFuncionarcios();
 		fun.pesquisarFuncionario(funcionario.cpf);
 		fun.acionarEditarFuncionario();
@@ -120,6 +129,7 @@ public class Funcionario extends Capabilities{
 	
 	@Test
 	public void ct08_excluirFuncionario() {
+		test = extent.createTest("CT08", "Excluir funcionario");
 		fun.acionarLinkFuncionarcios();
 		fun.pesquisarFuncionario(funcionario.nome);
 		fun.acionarDeletarFuncionario();

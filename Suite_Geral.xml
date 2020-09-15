@@ -5,7 +5,7 @@
 		<parameter name="platform" value="Chrome" />
 		<classes>
 			<class name="cadastro.Cadastro"/>
-			<class name="funcionario.Funcionario"/>
+			<!-- <class name="funcionario.Funcionario"/> -->
 		</classes>
 	</test>
 </suite>
