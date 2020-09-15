@@ -1,4 +1,4 @@
-# 🖥️ Projeto de Teste de WebSite 🖥️
+# Projeto Desafio Inmetrics - WEB
 
 ### Executar Testes
 
