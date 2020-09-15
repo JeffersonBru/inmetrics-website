@@ -14,6 +14,7 @@ public class LeitorProperties {
 	}
 	/**
 	 * Método para obter properties do arquivo
+	 * @throws Exception 
 	 */
 	public Properties getProperties() {
 		Properties props = new Properties();
@@ -22,7 +23,7 @@ public class LeitorProperties {
 			props.load(fis);
 			fis.close();
 		}catch(IOException e){
-			System.out.println(e);
+			e.printStackTrace();
 		}
 		return props;
 	}

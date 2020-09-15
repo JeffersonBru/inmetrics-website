@@ -96,18 +96,33 @@ public class Suporte {
 		assertEquals(elemento.getAttribute(atributo), check);
 	}
 	
+	/**
+	 * Randomizar qualquer array de string
+	 * @param array
+	 * @return
+	 */
 	public String random(String array[]) {
 		Random generator = new Random();
 		int randomIndex = generator.nextInt(array.length);
 		return array[randomIndex];
 	}
 	
+	/**
+	 * Obter data atual de acordo com o formato
+	 * @param format
+	 * @return
+	 */
 	public String obterData(String format) {
 		DateFormat formato = new SimpleDateFormat(format);
 		Date data = new Date();
 		return formato.format(data).toString();
 	}
 	
+	/**
+	 * Obter um objeto do tipo select
+	 * @param elemento
+	 * @return
+	 */
 	public Select selecionarOpcao(WebElement elemento) {
 		aguardaElemento(ExpectedConditions.elementToBeClickable(elemento));
 		return new Select(elemento);
