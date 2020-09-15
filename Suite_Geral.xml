@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite Geral" parallel="tests" thread-count="1">
+	<test name="Inmetrics - Desafio WEB">
+		<parameter name="platform" value="Chrome" />
+		<classes>
+		<class name="funcionario.Funcionario"/>
+			<!-- <class name="cadastro.Cadastro"/> -->
+		</classes>
+	</test>
+</suite>
