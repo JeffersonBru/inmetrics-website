@@ -41,7 +41,7 @@ public class Funcionario extends Capabilities{
 	
 	@Test
 	public void ct02_camposObrigatorios() {
-		test = extent.createTest("CT02", "Campos obrigatórios");
+		test = extent.createTest("CT02", "Campos obrigatï¿½rios");
 		String msg_campo = prop.getProperty("msg.campo.obrigatorio").toString();
 		fun.acionarLinkNovoFuncionario();
 		fun.acionarEnviar();
@@ -79,6 +79,7 @@ public class Funcionario extends Capabilities{
 	public void ct04_dataAdmissaoInvalida() {
 		test = extent.createTest("CT04", "Data admissao invalida");
 		fun.acionarLinkNovoFuncionario();
+		fun.preencherNome(funcionario.nome);
 		fun.preencherCpf(funcionario.cpf);
 		fun.preencherDataAdmissao("112255");
 		fun.acionarEnviar();
@@ -103,7 +104,7 @@ public class Funcionario extends Capabilities{
 	
 	@Test
 	public void ct06_consultarFuncionario() {
-		test = extent.createTest("CT01", "Campos obrigatórios - Login");
+		test = extent.createTest("CT01", "Campos obrigatï¿½rios - Login");
 		fun.pesquisarFuncionario(funcionario.nome);
 		fun.validarListaFuncionario(funcionario);
 	}

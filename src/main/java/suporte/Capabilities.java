@@ -11,8 +11,8 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
@@ -97,14 +97,15 @@ public class Capabilities {
 	/**
 	 * Finalizar browser ao terminar teste de uma classe
 	 */
-	@AfterClass
+	@AfterSuite
 	protected void finalizar() {
 		driver.get().quit();
+		driver.set(null);
 		extent.flush();
 	}
 
 	/**
-	 * Acessa a aplicação
+	 * Acessa a aplicaï¿½ï¿½o
 	 */
 	protected void acessaAplicacao(String url) {
 		driver.get().get(url);
